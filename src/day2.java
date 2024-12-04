@@ -8,14 +8,16 @@ import java.util.Scanner;
 public class day2 {
     public static void main(String[] args) {
         int safeReports = 0;
-        ArrayList<String> dataStr = getFileData("inputs/day2_sample");
+        ArrayList<String> dataStr = getFileData("inputs/day2");
         System.out.println(dataStr);
 
         for (int i = 0; i < dataStr.size(); i++) {
             ArrayList<Integer> report = toIntList(dataStr.get(i));
+            // System.out.println(report);
             for (int j = 0; j < report.size() - 1; j++) {
                 int distance = Math.abs(report.get(j+1) - report.get(j));
-                if (levelsSequential(report) && ((distance > 3 || distance < 1))){
+                if (levelsSequential(report) && ((distance < 3 || distance < 1))){
+                    // System.out.println(report + ": " + levelsSequential(report));
                     safeReports++;
                 }
             }
@@ -53,6 +55,8 @@ public class day2 {
         return intList;
     }
 
+    //something wrong here...
+    //sequences with double-digit numbers dont turn true for some reason
     private static boolean levelsSequential(ArrayList<Integer> report){
         if (report.get(0) > report.get(1)){
             for (int i = 0; i < report.size() - 1; i++) {
