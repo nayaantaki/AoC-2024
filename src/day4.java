@@ -12,7 +12,14 @@ public class day4 {
 //        System.out.println(horizontal(data.get(0)));
 
 //        System.out.println(vertical(data));
-        diagonal(data);
+
+        int xmasCounter = 0;
+        for (int i = 0; i < data.size(); i++) {
+            xmasCounter += horizontal(data.get(i));
+        }
+        xmasCounter += vertical(data);
+        xmasCounter += diagonal(data);
+        System.out.println(xmasCounter);
     }
 
     public static ArrayList<String> getFileData(String fileName) {
@@ -43,31 +50,52 @@ public class day4 {
 
     public static int vertical(ArrayList<String> puzzle){
         int counter = 0;
-        for (int r = 0; r < puzzle.size() - 4; r++) {
-            for (int c = 0; c < puzzle.get(0).length(); c++) {
-                String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r + 1).charAt(c)) + String.valueOf(puzzle.get(r + 2).charAt(c)) + String.valueOf(puzzle.get(r + 3).charAt(c));
-                System.out.println(bitChecking);
-                counter += horizontal(bitChecking);
+        try{
+            for (int r = 0; r < puzzle.size() - 3; r++) {
+                for (int c = 0; c < puzzle.get(0).length(); c++) {
+                    String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r + 1).charAt(c)) + String.valueOf(puzzle.get(r + 2).charAt(c)) + String.valueOf(puzzle.get(r + 3).charAt(c));
+//                    System.out.println(bitChecking);
+                    counter += horizontal(bitChecking);
+                }
             }
+        } catch (IndexOutOfBoundsException e) {
+            return counter;
         }
         return counter;
     }
 
     public static int diagonal(ArrayList<String> puzzle){
-        for (int r = 0; r < puzzle.size() - 3; r++) {
-            for (int c = 0; c < puzzle.get(0).length() - 3; c++) {
-                String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r + 1).charAt(c + 1)) + String.valueOf(puzzle.get(r + 2).charAt(c + 2)) + String.valueOf(puzzle.get(r + 3).charAt(c + 3));
-//                System.out.println(bitChecking);
+        int counter = 0;
+        try {
+            for (int r = 0; r < puzzle.size() - 3; r++) {
+                for (int c = 0; c < puzzle.get(0).length() - 3; c++) {
+                    String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r + 1).charAt(c + 1)) + String.valueOf(puzzle.get(r + 2).charAt(c + 2)) + String.valueOf(puzzle.get(r + 3).charAt(c + 3));
+//                    System.out.println(bitChecking);
+                    counter += horizontal(bitChecking);
+                }
             }
+        } catch (IndexOutOfBoundsException e) {
+            //
         }
 
+        System.out.println("-------------------------------------");
+
         //goes out of bounds towards the end
-        for (int r = puzzle.size() - 3; r > 0; r--) {
-            for (int c = 0; c < puzzle.get(0).length() - 3; c++) {
-                String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r - 1).charAt(c + 1)) + String.valueOf(puzzle.get(r - 2).charAt(c + 2)) + String.valueOf(puzzle.get(r - 3).charAt(c + 3));
-                System.out.println(bitChecking);
+        try {
+            System.out.println(puzzle.get(puzzle.size() - 3));
+            System.out.println(puzzle.get(puzzle.size() - 3).charAt(0));
+            for (int r = 0; r < puzzle.size() - 3; r++) {
+                for (int c = puzzle.get(0).length() - 3; c > 0; c--) {
+                    String bitChecking = String.valueOf(puzzle.get(r).charAt(c)) + String.valueOf(puzzle.get(r + 1).charAt(c - 1)) + String.valueOf(puzzle.get(r + 2).charAt(c - 2)) + String.valueOf(puzzle.get(r + 3).charAt(c - 3));
+                    System.out.println(bitChecking);
+                    counter += horizontal(bitChecking);
+                }
             }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("crash");
+            return counter;
         }
-        return 0;
+
+        return counter;
     }
 }
