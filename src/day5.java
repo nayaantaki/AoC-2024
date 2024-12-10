@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,14 +15,18 @@ public class day5 {
             ruleSets.add(arrRule);
         }
 
-        for (String[] rule : ruleSets){
-            System.out.println(Arrays.toString(rule));
-        }
-
         //parse the sequences as an arraylist of integer arrays
 
         ArrayList<int[]> sequenceSets = new ArrayList<int[]>();
-
+        for (int i = 0; i < sequencesData.size(); i++) {
+            String [] arrSequence = sequencesData.get(i).split(",");
+            System.out.println(Arrays.toString(arrSequence));
+            int [] intArrSequence = new int[arrSequence.length];
+            for (int j = 0; j < intArrSequence.length; j++) {
+                intArrSequence[j] = Integer.parseInt(arrSequence[j]);
+            }
+            sequenceSets.add(intArrSequence);
+        }
 
     }
     public static ArrayList<String> getFileData(String fileName) {
