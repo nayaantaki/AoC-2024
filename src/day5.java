@@ -59,7 +59,7 @@ public class day5 {
             for (int j = 0; j < ruleSets.size(); j++) {
                 int[] workingRule = ruleSets.get(j);
                 if (ruleNumbersPresent(workingSequence, workingRule)){
-
+                    //
                 }
             }
         }
@@ -77,6 +77,7 @@ public class day5 {
                 return true;
             }
         }
+        return true;
     }
 
     public static boolean checkRule(int[] sequenceSet, int[] ruleSet){
@@ -91,7 +92,6 @@ public class day5 {
             }
         }
 
-        //condition to check if first index is smaller than second index (true) or vice versa (false)
-
+        return indexOfFirst < indexOfSecond;
     }
 }
