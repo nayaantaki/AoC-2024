@@ -15,23 +15,9 @@ public class day13 {
             System.out.println(Arrays.toString(machine));
         }
 
-    }
+        int tokens = solveButtonPresses(machines.get(1));
 
-    public static ArrayList<String> getFileData(String fileName) {
-        ArrayList<String> fileData = new ArrayList<String>();
-        try {
-            File f = new File(fileName);
-            Scanner s = new Scanner(f);
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                if (!line.equals(""))
-                    fileData.add(line);
-            }
-            return fileData;
-        }
-        catch (FileNotFoundException e) {
-            return fileData;
-        }
+
     }
 
     public static ArrayList<int[]> parseMachineValues(ArrayList<String> data){
@@ -65,12 +51,33 @@ public class day13 {
         int bY = machine[3];
         int prizeY = machine[5];
 
-        //X Movement
-        // movementofA(pressesA) + movementofB(pressesB) = prize x coord
-        //
-        //Y Movement
-        // movementofA(pressesA) + movementofB(pressesB) = prize y coord
+        int a = (prizeX*bY-prizeY*bX)/(bY*aX-bX*aY);
+        int b = (prizeX*aY-prizeY*aX)/(aY*bX-bY*aX);
 
-        return 0;
+        System.out.println("A Presses: " + a);
+        System.out.println("B Presses: " + b);
+
+        if (a > 100 || b > 100){
+            return 0;
+        } else{
+            return (a*3) + b;
+        }
+    }
+
+    public static ArrayList<String> getFileData(String fileName) {
+        ArrayList<String> fileData = new ArrayList<String>();
+        try {
+            File f = new File(fileName);
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                if (!line.equals(""))
+                    fileData.add(line);
+            }
+            return fileData;
+        }
+        catch (FileNotFoundException e) {
+            return fileData;
+        }
     }
 }
